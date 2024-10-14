@@ -1,8 +1,8 @@
 import express from 'express';
-import { mangaServics } from './topMangaRoute.js'
+import { mangaServices } from '../Controller/topMangaController.js'
 
 const MangaRouter = express.Router();
 
-MangaRouter.get('/get/all/', mangaServics);
+MangaRouter.get('/get/all', mangaServices);
 
 export default MangaRouter
