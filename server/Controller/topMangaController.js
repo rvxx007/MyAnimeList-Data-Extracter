@@ -46,29 +46,28 @@ const url = !type?`https://myanimelist.net/topmanga.php?limit=${next || 0}`:
     })
 
     const MangaInfo = [];
-    await axios(TopMangaList[0].link).then(response=>{
-        const html = response.data;
-        const $ = cheerio.load(html);
+    // await axios(TopMangaList[0].link).then(response=>{
+    //     const html = response.data;
+    //     const $ = cheerio.load(html);
 
-        $('tr').children(function(){
-            const title = $(this).find('span.h1-title').text();
-            const title0 =$(this).find('td.borderClass').find('div.spaceit_pad').find('span.dark_text').text();
-            const type =$(this).find('td.borderClass').find('div.spaceit_pad').text();
-            const img = $(this).find('td.borderClass').find('img').attr('src');
-            const link = $(this).find('td.borderClass').find('a').first().attr('href');
+    //     $('tr').children(function(){
+    //         const title = $(this).find('span.h1-title').text();
+    //         const title0 =$(this).find('td.borderClass').find('div.spaceit_pad').find('span.dark_text').text();
+    //         const type =$(this).find('td.borderClass').find('div.spaceit_pad').text();
+    //         const img = $(this).find('td.borderClass').find('img').attr('src');
+    //         const link = $(this).find('td.borderClass').find('a').first().attr('href');
 
-            MangaInfo.push({title,type,img,link})
-        })
-    })
+    //         MangaInfo.push({title,type,img,link})
+    //     })
+    // })
    
     // console.log(MangaInfo);
     
     // TopMangaList.unshift(MangaInfo)
     
-    resFun(res,200,"Success",MangaInfo)
+    resFun(res,200,"Success",TopMangaList)
 } catch (err) {
     console.error(err);
-    
     ErrFun(res,500,err,"Server Unreachable.");
 }
     
