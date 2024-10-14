@@ -37,7 +37,7 @@ const url = !type?`https://myanimelist.net/topmanga.php?limit=${next || 0}`:
             const link = $(this).find('td.title').find('a.hoverinfo_trigger').attr('href');
             const img = $(this).find('td.title').find('a.hoverinfo_trigger').find('img').attr('data-src');
             const name = $(this).find('td.title').find('div.detail').find('a.hoverinfo_trigger').text()
-            const info = $(this).find('td.title').find('div.detail').find('div.information').text().trim()
+            const info = $(this).find('td.title').find('div.detail').find('div.information').text().split("\n        ").slice(1,3)
             const score = $(this).find('td.score').find('span.score-label').text();
             
             TopMangaList.push({srNo,name,link,img,info,score})
