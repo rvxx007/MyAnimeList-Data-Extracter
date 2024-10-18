@@ -39,15 +39,23 @@ const allAnimeAndMangaNews= async(req, res)=>{
                 const timeStamp = $(this).find('div.information').find('p.info').text().trim().split("by").at(0);
                 const tagsText = $(this).find('div.information').find('p.tags').find('a.tag').text()
                 const tagsAddon = $(this).find('div.information').find('p.tags').find('a.tag').attr('class');
-                let tagsAddonClass = (!tagsAddon ?"":tagsAddon.split(" ").at(1));
-                const tags= [];
-                 tags.push((!tagsText?"news":tagsText.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g)));
-                      tags.push((tagsAddonClass==="tag-color1"?"Anime":
-                        (tagsAddonClass==="tag-color2"?"Manga":
-                        (tagsAddonClass==="tag-color3"?"People":
-                        (tagsAddonClass==="tag-color4"?"Music":
-                        (tagsAddonClass==="tag-color5"?"Events":
-                        (tagsAddonClass==="tag-color6"&&"Industry")))))));
+                let tagsAddonClass = (!tagsAddon ? "":tagsAddon.split(" ").at(1));
+                 
+                 let tags = (!tagsText?["news"]:tagsText.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g) || []);
+                 
+                 const tagMap = {
+                    "tag-color1":"Anime",
+                    "tag-color2":"Manga",
+                    "tag-color3":"People",
+                    "tag-color4":"Music",
+                    "tag-color5":"Events",
+                    "tag-color6":"Industry"
+                 }
+
+                 if(tagMap[tagsAddonClass]){
+                    tags.push(tagMap[tagsAddonClass])
+                 }
+                      
                 if(!title){
                     console.log({title,link,img,text,timeStamp,tags});  
                 }else{
