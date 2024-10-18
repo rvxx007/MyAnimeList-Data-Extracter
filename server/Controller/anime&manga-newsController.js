@@ -21,9 +21,9 @@ function Error(res,code,error,msg){
 const allAnimeAndMangaNews= async(req, res)=>{
     try {
 
-        const {page} =req.body || req.query;
+        const {next} = req.query;
         
-        const url = `https://myanimelist.net/news?p=${page || 1}`
+        const url = `https://myanimelist.net/news?p=${next || 1}`
         
         const AnimeAndMangaNewsList = [];
 
