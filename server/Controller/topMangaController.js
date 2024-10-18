@@ -23,7 +23,7 @@ const mangaServices = async(req, res)=>{
 
 try {
 
-const { next , type }=req.body || req.query;
+const { next , type }= req.query;
 const url = !type?`https://myanimelist.net/topmanga.php?limit=${next || 0}`:
             `https://myanimelist.net/topmanga.php?type=${type}&limit=${next || 0}`;
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import loader from '../assets/loaderx.gif'
 import ItemsCard from "../components/ItemsCard";
 import FilterNav from "../components/FilterNav";
+import Loader from "../components/Loader";
 
 const Anime = () => {
 
@@ -13,13 +13,7 @@ const Anime = () => {
   const fetchData = async()=>{
     const url = (!type?`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}`:`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}&type=${type}`)
     
-    // const obj = {
-    //   method: "GET",
-    //   headers:{ 
-    //     'Content-Type': 'application/json'
-    //   },
-    //   redirect: "follow",
-    // };
+    
     
       await axios.get(url)
       .then((response)=>{
@@ -37,14 +31,22 @@ useEffect(()=>{
   fetchData();
 },[nxtPage,type])
 
+const AnimeTyArr =[{value:"airing",name:"Top Airing"},
+  {value:"upcoming",name:"Top Upcoming"},
+  {value:"tv",name:"Top TV Series"},
+  {value:"ova",name:"Top OVA Series"},
+  {value:"ona",name:"Top ONA Series"},
+  {value:"special",name:"Top Special"},
+  {value:"bypopularity",name:"Top Anime by Popularity"},
+  {value:"favorite",name:"Most Favorite"}]
   
   return (
     <main className="container flex flex-col">
     <header>
-    {/* <FilterNav nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/> */}
+    <FilterNav tyArr={AnimeTyArr} nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/>
     </header>
     <section className=" flex justify-center items-center gap-4 flex-wrap">
-      {/* {(animeData === undefined  ?<><img src={loader} alt="Loading..." /></> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))} */}
+      {(animeData === undefined  || animeData === null  ?<Loader/> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
     </section>
     </main>
   )

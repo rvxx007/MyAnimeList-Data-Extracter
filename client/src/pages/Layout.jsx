@@ -1,16 +1,22 @@
 import { Outlet } from "react-router-dom"
 import Header from "../components/Header"
 
+
 const Layout = ()=>{
 
 
 return(<>
 
-<main style={{border:"1px solid red"}}
-className="w-full h-full min-w-[350px] mx-auto">
+<main
+className="w-full h-screen mx-auto">
 <Header/>
-<main className="w-full container mx-auto px-2 mt-[6rem]">
+<br />
+<br />
+<br />
+<br />
+<main  className="w-full h-full container mx-auto px-2 ">
     <Outlet/>
+    
 </main >
 </main>
 </>)
