@@ -5,13 +5,12 @@ import loader from '../assets/loaderx.gif'
 
 const Manga = () => {
 
-  const [mangaData, setMangaData] = useState([]);
+  const [mangaData, setMangaData] = useState([])
   const [nxtPage, setNxtPage] = useState(0);
   const fetchData = async()=>{
     const url = "https://myanimelist-data-extracter.onrender.com/api/v1/top-manga/get/all"
     const body={
         next: nxtPage,
-        type:""
     }
       await axios.get(url,body).then((response)=>{
         const result = response.data;
