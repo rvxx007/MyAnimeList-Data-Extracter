@@ -37,8 +37,22 @@ const allAnimeAndMangaNews= async(req, res)=>{
                 const title  = $(this).find('div.news-unit-right').find('p.title').text().trim();
                 const text = $(this).find('div.text').text().trim();
                 const timeStamp = $(this).find('div.information').find('p.info').text().trim().split("by").at(0);
-                const tags = $(this).find('div.information').find('p.tags').find('a.tag').text().trim().split(" ")
-                AnimeAndMangaNewsList.push({title,link,img,text,timeStamp,tags});
+                const tagsText = $(this).find('div.information').find('p.tags').find('a.tag').text()
+                const tagsAddon = $(this).find('div.information').find('p.tags').find('a.tag').attr('class');
+                let tagsAddonClass = (!tagsAddon ?"":tagsAddon.split(" ").at(1));
+                const tags= [];
+                 tags.push((!tagsText?"news":tagsText.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g)));
+                      tags.push((tagsAddonClass==="tag-color1"?"Anime":
+                        (tagsAddonClass==="tag-color2"?"Manga":
+                        (tagsAddonClass==="tag-color3"?"People":
+                        (tagsAddonClass==="tag-color4"?"Music":
+                        (tagsAddonClass==="tag-color5"?"Events":
+                        (tagsAddonClass==="tag-color6"&&"Industry")))))));
+                if(!title){
+                    console.log({title,link,img,text,timeStamp,tags});  
+                }else{
+                    AnimeAndMangaNewsList.push({title,link,img,text,timeStamp,tags});
+                }
             });
             
             Success(res,200,"Success",AnimeAndMangaNewsList);
