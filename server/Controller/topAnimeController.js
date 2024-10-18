@@ -25,8 +25,10 @@ const topAnimeListService = async(req ,res)=>{
 try {
     const { next, type } = req.query;
     
-    const url = !type?`https://localhost:5000/topanime.php?limit=${next || 0}`
-                    :`https://localhost:5000/topanime.php?type=${type}&limit=${next}`;
+    console.log(next);
+    
+    const url = !type?`https://myanimelist.net/topanime.php?limit=${next || 0}`
+                    :`https://myanimelist.net/topanime.php?type=${type}&limit=${next}`;
     
     const TopAnimeList = []
     await axios(url).then(response=>{

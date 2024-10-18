@@ -11,7 +11,7 @@ const Anime = () => {
   const [type, setType] = useState("");
 
   const fetchData = async()=>{
-    const url = (!type?`http://localhost:5000/api/v1/top-anime/get/all?next=${nxtPage}`:`http://localhost:5000/api/v1/top-anime/get/all?next=${nxtPage}&type=${type}`)
+    const url = (!type?`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}`:`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}&type=${type}`)
     
     // const obj = {
     //   method: "GET",
@@ -41,10 +41,10 @@ useEffect(()=>{
   return (
     <main className="container flex flex-col">
     <header>
-    <FilterNav nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/>
+    {/* <FilterNav nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/> */}
     </header>
     <section className=" flex justify-center items-center gap-4 flex-wrap">
-      {(animeData === undefined  ?<><img src={loader} alt="Loading..." /></> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
+      {/* {(animeData === undefined  ?<><img src={loader} alt="Loading..." /></> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))} */}
     </section>
     </main>
   )
