@@ -2,9 +2,9 @@ import loader from '../assets/loaderx.gif'
 const Loader = () => {
   return (
         <>
-        <div className='h-full container flex justify-center items-center'>
+        <div className='w-full h-[35rem] container flex justify-center items-center'>
 
-        <img className="w-[100px] " src={loader} alt="Loading..." />
+        <img className="w-[150px] " src={loader} alt="Loading..." />
         </div>
         </>
   

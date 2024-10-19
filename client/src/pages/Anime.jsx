@@ -45,8 +45,8 @@ const AnimeTyArr =[{value:"airing",name:"Top Airing"},
     <header>
     <FilterNav tyArr={AnimeTyArr} nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/>
     </header>
-    <section className=" flex justify-center items-center gap-4 flex-wrap">
-      {(animeData === undefined  || animeData === null  ?<Loader/> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
+    <section className="w-full h-full flex justify-center items-center gap-4 flex-wrap">
+      {(animeData.length === 0  || animeData === undefined  ?<Loader/> :animeData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
     </section>
     </main>
   )

@@ -47,7 +47,7 @@ const Manga = () => {
     <FilterNav tyArr={mangaTyArr} nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/>
     </header>
     <section className=" flex justify-center items-center gap-4 flex-wrap">
-      {(mangaData === undefined  || mangaData === null  ?<Loader/> :mangaData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
+      {(mangaData.length === 0  || mangaData === undefined  ?<Loader/> :mangaData.map((items)=>(<ItemsCard key={items.srNo} items={items} />)))}
     </section>
     </main>
   )

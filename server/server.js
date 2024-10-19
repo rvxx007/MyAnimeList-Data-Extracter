@@ -22,6 +22,8 @@ app.get('/', (req,res)=>{
 res.status(200).sendFile(path.join(__dirname+'/View/index.html'))
 });
 
+app.use(express.static('./public'))
+
 app.use('/api/v1/top-anime',TopAnimeRoute);
 app.use('/api/v1/anime-and-manga-news',AnimeAndMangaNewsRouter)
 app.use('/api/v1/top-manga',MangaRouter)
