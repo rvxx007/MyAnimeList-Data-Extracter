@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import FilterNav from "../components/FilterNav";
 import Loader from "../components/Loader";
-import ItemsCard from "../components/ItemsCard";
+
 import {v4 as uuidv1} from 'uuid'
+import { Link } from "react-router-dom";
 
 const News = () => {
   const [newsData, setNewsData] = useState([])
@@ -12,7 +13,8 @@ const News = () => {
 
   const fetchData = async()=>{
    
-    const url = `https://myanimelist-data-extracter.onrender.com/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
+    // const url = `https://myanimelist-data-extracter.onrender.com/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
+    const url = `http://localhost:5000/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
    
       await axios.get(url).then((response)=>{
         const result = response.data;
@@ -25,36 +27,18 @@ const News = () => {
   useEffect(()=>{
     fetchData();
   },[nxtPage, type])
-
-  console.log(newsData);
   
-  
-  const newsTyArr =[{value:"manga",name:"Top Manga"},
-    {value:"oneshots",name:"Top One-shots"},
-    {value:"doujin",name:"Top Doujinshi"},
-    {value:"lightnovels",name:"Top Light Novels"},
-    {value:"novels",name:"Top Novels"},
-    {value:"manhwa",name:"Top Manhwa"},
-    {value:"manhua",name:"Top Manhua"},
-    {value:"bypopularity",name:"Top Manga by Popularity"},
-    {value:"favorite",name:"Top Most Favorite"}];
-
-    const tagMap={
-      "tag-color1":"Anime",
-      "tag-color2":"Manga",
-      "tag-color3":"People",
-      "tag-color4":"Music",
-      "tag-color5":"Events",
-      "tag-color6":"Industry"
-    }
+ 
   return (
      <main className="container flex flex-col">
     <header>
-    {/* <FilterNav tyArr={newsTyArr} nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/> */}
+    <FilterNav nxobj={[nxtPage, setNxtPage]} tyobj={[type, setType]}/>
     </header>
     <section className=" flex justify-center items-center gap-4 flex-wrap">
-      {(newsData.length === 0  || newsData === undefined  ?<Loader/> :newsData.map((items)=>(
+      {(newsData.length === 0  || newsData === undefined  ?<Loader/> :newsData?.map((items)=>(
+      
       <div key={uuidv1()}>
+      <Link to={`/news/:${items.newsId}`}>
       <div
           className="w-full  h-full group hover:text-white hover:bg-black hover: border-2 border-gray-200 my-2 flex flex-row items-center p-5 gap-4 rounded-xl shadow-md ">
             <div>
@@ -69,6 +53,7 @@ const News = () => {
             </div>
             </div>
       </div>
+      </Link>
       </div>
       )))}
     </section>

@@ -1,5 +1,6 @@
 import axios  from "axios";
 import * as cheerio from 'cheerio';
+import { query } from "express";
 
 
 function Success(res,code,msg,data){
@@ -32,7 +33,8 @@ const allAnimeAndMangaNews= async(req, res)=>{
             const $ = cheerio.load(html);
             $('div.news-unit').each(function(){
 
-                const link = $(this).find('a.image-link').attr('href')
+                let link = $(this).find('a.image-link').attr('href');
+                const newsId = link?.slice(29)
                 const img = $(this).find('img.image').attr('src')
                 const title  = $(this).find('div.news-unit-right').find('p.title').text().trim();
                 const text = $(this).find('div.text').text().trim();
@@ -42,7 +44,7 @@ const allAnimeAndMangaNews= async(req, res)=>{
                 let tagsAddonClass = (!tagsAddon ? "":tagsAddon.split(" ").at(1));
                  
                  let tags = (!tagsText?["news"]:tagsText.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/g) || []);
-                 
+
                  const tagMap = {
                     "tag-color1":"Anime",
                     "tag-color2":"Manga",
@@ -57,9 +59,10 @@ const allAnimeAndMangaNews= async(req, res)=>{
                  }
                       
                 if(!title){
-                    console.log({title,link,img,text,timeStamp,tags});  
+                    console.log({title,link,newsId,img,text,timeStamp,tags});  
                 }else{
-                    AnimeAndMangaNewsList.push({title,link,img,text,timeStamp,tags});
+                    const newLink = link.slice(29)
+                    AnimeAndMangaNewsList.push({title,link,newsId,img,text,timeStamp,tags});
                 }
             });
             
@@ -71,4 +74,36 @@ const allAnimeAndMangaNews= async(req, res)=>{
     }
 }
 
-export {allAnimeAndMangaNews}
+const animeNewsDetails = async (req, res)=>{
+    try {
+        const {id} = req.query;
+        console.log(req.query);
+        
+        const url = `https://myanimelist.net/news/${id}`;
+        
+        const newsDetailsDataList=[]
+
+        await axios.get(url).then((response)=>{
+            const html = response.data;
+            const $ = cheerio.load(html);
+            $('div.content-left').each(function(){
+                const title = $(this).find('div.news-container').find('h1.title').text();
+                const info = $(this).find('div.content').text();
+                const poster = $(this).find('div.content').find('img.userimg').attr('src');
+                const width = $(this).find('div.content').find('iframe.youtube').attr('width');
+                const height = $(this).find('div.content').find('iframe.youtube').attr('height');
+                const src = $(this).find('div.content').find('iframe.youtube').attr('src');
+                const tags = $(this).find('div.tags').find('a').append(',').text().trim().split(',');
+                
+                newsDetailsDataList.push({title,info,poster,video:{width,height,src},tags});
+            })
+
+        })
+            res.status(200).json(newsDetailsDataList)
+
+    } catch (error) {
+        
+    }
+}
+
+export {allAnimeAndMangaNews,animeNewsDetails}

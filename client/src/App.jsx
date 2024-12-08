@@ -6,6 +6,7 @@ import Anime from './pages/Anime'
 import Manga from './pages/Manga'
 import News from './pages/News'
 import NotFound from './pages/NotFound'
+import NewsDetails from './pages/NewsDetails'
 
 
 function App() {
@@ -27,7 +28,11 @@ function App() {
         },
         {
           path:'/news',
-          element: <News/>
+          element: <News/>,
+        },
+        {
+          path:'/news/:id',
+          element:<NewsDetails/>
         },
         {
           path:'*',

@@ -56,19 +56,4 @@ try {
 }
 
 
-const topAnimeDetailsService = async(req, res)=>{
-    try {
-        const url = req.body.link;
-
-        await axios(url).then(()=>{
-            const html = response.data;
-            const $ = cheerio.load(html);
-
-            // $("")
-        })
-    } catch (error) {
-        
-    }
-}
-
 export {topAnimeListService}
