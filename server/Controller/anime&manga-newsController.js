@@ -1,6 +1,5 @@
 import axios  from "axios";
 import * as cheerio from 'cheerio';
-import { query } from "express";
 
 
 function Success(res,code,msg,data){
@@ -77,7 +76,6 @@ const allAnimeAndMangaNews= async(req, res)=>{
 const animeNewsDetails = async (req, res)=>{
     try {
         const {id} = req.query;
-        console.log(req.query);
         
         const url = `https://myanimelist.net/news/${id}`;
         
@@ -88,7 +86,7 @@ const animeNewsDetails = async (req, res)=>{
             const $ = cheerio.load(html);
             $('div.content-left').each(function(){
                 const title = $(this).find('div.news-container').find('h1.title').text();
-                const info = $(this).find('div.content').text();
+                const info = $(this).find('div.content').text().trim().split("\n").filter((item)=>item!=="");
                 const poster = $(this).find('div.content').find('img.userimg').attr('src');
                 const width = $(this).find('div.content').find('iframe.youtube').attr('width');
                 const height = $(this).find('div.content').find('iframe.youtube').attr('height');
@@ -102,7 +100,7 @@ const animeNewsDetails = async (req, res)=>{
             res.status(200).json(newsDetailsDataList)
 
     } catch (error) {
-        
+        res.status(500).json(error.message)
     }
 }
 

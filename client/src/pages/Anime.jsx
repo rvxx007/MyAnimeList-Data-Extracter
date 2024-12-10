@@ -13,8 +13,6 @@ const Anime = () => {
   const fetchData = async()=>{
     const url = (!type?`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}`:`https://myanimelist-data-extracter.onrender.com/api/v1/top-anime/get/all?next=${nxtPage}&type=${type}`)
     
-    
-    
       await axios.get(url)
       .then((response)=>{
         const result = response.data;
@@ -23,9 +21,6 @@ const Anime = () => {
         console.error(err);
       })
   }
-
-console.log(animeData);
-
 
 useEffect(()=>{
   fetchData();

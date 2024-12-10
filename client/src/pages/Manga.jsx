@@ -10,8 +10,6 @@ const Manga = () => {
   const [nxtPage, setNxtPage] = useState(0);
   const [type, setType] = useState("");
 
-
-  
   const fetchData = async()=>{
    
     const url = (!type?`https://myanimelist-data-extracter.onrender.com/api/v1/top-manga/get/all?next=${nxtPage}`:`https://myanimelist-data-extracter.onrender.com/api/v1/top-manga/get/all?next=${nxtPage}&type=${type}`)
@@ -29,8 +27,6 @@ const Manga = () => {
   },[nxtPage, type])
 
 
-  console.log(mangaData);
-  
   const mangaTyArr =[{value:"manga",name:"Top Manga"},
     {value:"oneshots",name:"Top One-shots"},
     {value:"doujin",name:"Top Doujinshi"},

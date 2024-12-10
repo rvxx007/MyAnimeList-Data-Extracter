@@ -8,7 +8,7 @@ const Layout = ()=>{
 return(<>
 
 <main
-className="w-full h-screen mx-auto">
+className="min-w-screen min-h-screen mx-auto">
 <Header/>
 <br />
 <br />
@@ -16,7 +16,6 @@ className="w-full h-screen mx-auto">
 <br />
 <main  className="w-full h-full container mx-auto px-2 ">
     <Outlet/>
-    
 </main >
 </main>
 </>)

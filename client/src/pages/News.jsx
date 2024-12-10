@@ -8,13 +8,12 @@ import { Link } from "react-router-dom";
 
 const News = () => {
   const [newsData, setNewsData] = useState([])
-  const [nxtPage, setNxtPage] = useState(1);
+  const [nxtPage, setNxtPage] = useState(0);
   const [type, setType] = useState("");
 
   const fetchData = async()=>{
-   
-    // const url = `https://myanimelist-data-extracter.onrender.com/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
-    const url = `http://localhost:5000/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
+    const url = `https://myanimelist-data-extracter.onrender.com/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
+      //  const url = `http://localhost:5000/api/v1/anime-and-manga-news/get/all?next=${nxtPage}`;
    
       await axios.get(url).then((response)=>{
         const result = response.data;
@@ -38,7 +37,7 @@ const News = () => {
       {(newsData.length === 0  || newsData === undefined  ?<Loader/> :newsData?.map((items)=>(
       
       <div key={uuidv1()}>
-      <Link to={`/news/:${items.newsId}`}>
+      <Link to={`/news/${items.newsId}`}>
       <div
           className="w-full  h-full group hover:text-white hover:bg-black hover: border-2 border-gray-200 my-2 flex flex-row items-center p-5 gap-4 rounded-xl shadow-md ">
             <div>
