@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.loading-bar-w {
+    animation: loading-w-bar 5s infinite linear;
+}
+
+
+@keyframes loading-w-bar{
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 50%;
+    }
+    100% {
+        width: 100%;
+    }
+}
