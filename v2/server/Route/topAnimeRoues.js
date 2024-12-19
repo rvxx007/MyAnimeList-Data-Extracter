@@ -4,6 +4,6 @@ import { topAnimeListService } from '../Controller/topAnimeController.js';
 
 const TopAnimeRoute = express.Router();
 
-TopAnimeRoute.get('/get/all',topAnimeListService);
+TopAnimeRoute.get('/get',topAnimeListService);
 
 export default TopAnimeRoute 
